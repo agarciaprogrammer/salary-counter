@@ -17,7 +17,7 @@ export const useSalaryCounter = (contract: ContractConfig | null) => {
     };
 
     update();
-    const interval = setInterval(update, 5 * 60 * 1000);
+    const interval = setInterval(update, 5 * 1000);
 
     return () => clearInterval(interval);
   }, [contract]);
