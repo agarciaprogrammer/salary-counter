@@ -7,6 +7,11 @@ import { useSalaryCounter } from "@/hooks/useSalaryCounter";
 import AnimatedNumber from "@/components/AnimatedNumber";
 import { getWorkStatus } from "@/lib/workStatus";
 import { calculateDailyProgress } from "@/lib/dailyProgress";
+import {
+  calculateLast7DaysMoney,
+  calculateMonthlyMoney,
+  calculateTodayMoney,
+} from "@/lib/moneyRanges";
 
 export default function Dashboard() {
   const [contract, setContract] = useState<any>(null);
@@ -27,6 +32,9 @@ export default function Dashboard() {
 
   const status = getWorkStatus(contract);
   const daily = calculateDailyProgress(contract);
+  const todayMoney = calculateTodayMoney(contract);
+  const last7DaysMoney = calculateLast7DaysMoney(contract);
+  const monthlyMoney = calculateMonthlyMoney(contract);
 
   return (
     <main className="h-screen flex flex-col items-center justify-center text-center px-4">
@@ -44,6 +52,12 @@ export default function Dashboard() {
       <p className="text-gray-500 mt-3">
         Generados desde que empezaste
       </p>
+
+      <div className="text-xs text-gray-500 mt-4 space-y-1">
+        <p>Hoy: {contract.currency} {todayMoney.toFixed(2)}</p>
+        <p>Últimos 7 días: {contract.currency} {last7DaysMoney.toFixed(2)}</p>
+        <p>Este mes: {contract.currency} {monthlyMoney.toFixed(2)}</p>
+      </div>
 
       {/* Barra diaria */}
       <div className="w-64 h-2 bg-gray-700 rounded overflow-hidden mt-6">
